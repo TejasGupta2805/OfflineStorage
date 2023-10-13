@@ -5,6 +5,7 @@ const query = gql`
     todos @rest(type: "[Todo]", path: "todos") {
       id
       title
+      completed
     }
   }
 `;

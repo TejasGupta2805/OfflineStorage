@@ -11,8 +11,9 @@ const CREATE_TODO = gql`
 `;
 
 const UPDATE_TODO_MUTATION = gql`
-  mutation UpdateTodo($id: ID!, $title: String!) {
-    updateTodo(id: $id, title: $title) {
+  mutation UpdateTodo($input: UpdateTodoInput!) {
+    updateTodo(input: $input)
+      @rest(type: "Todo", path: "todos/{args.input.id}", method: "PUT") {
       id
       title
     }
@@ -20,8 +21,9 @@ const UPDATE_TODO_MUTATION = gql`
 `;
 
 const DELETE_TODO_MUTATION = gql`
-  mutation DeleteTodo($id: ID!) {
-    deleteTodo(id: $id) {
+  mutation DeleteTodo($id: Int!) {
+    deleteTodo(id: $id)
+      @rest(type: "Todo", path: "todos/{args.id}", method: "DELETE") {
       id
     }
   }

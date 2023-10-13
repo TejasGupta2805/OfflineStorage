@@ -4,17 +4,18 @@ import React from 'react';
 import {TodoList} from './src/screens/TodoList';
 
 const restLink = new RestLink({
-  uri: 'https://jsonplaceholder.typicode.com/',
+  uri: 'http://192.168.0.140:8083/',
 });
 
-const clients = new ApolloClient({
+export const client = new ApolloClient({
   cache: new InMemoryCache(),
   link: restLink,
+  connectToDevTools: true,
 });
 
 const App = () => {
   return (
-    <ApolloProvider client={clients}>
+    <ApolloProvider client={client}>
       <TodoList />
     </ApolloProvider>
   );
