@@ -1,22 +1,35 @@
 import {ApolloClient, ApolloProvider, InMemoryCache} from '@apollo/client';
 import {RestLink} from 'apollo-link-rest';
 import React from 'react';
-import {TodoList} from './src/screens/TodoList';
+import {MMKVWrapper, CachePersistor} from 'apollo3-cache-persist';
+import {MMKV} from 'react-native-mmkv';
+import {OfflineStorage} from './src/screens/OfflineStorage';
 
-const restLink = new RestLink({
-  uri: 'http://192.168.0.140:8083/',
+export const restLink = new RestLink({
+  uri: 'https://ys348mdckl.execute-api.ap-south-1.amazonaws.com/dev/crud/empapp/',
 });
+
+export const MMKV_STORAGE = new MMKV();
+const cache = new InMemoryCache();
 
 export const client = new ApolloClient({
-  cache: new InMemoryCache(),
+  cache: cache,
   link: restLink,
-  connectToDevTools: true,
 });
+
+export const persistor = new CachePersistor({
+  cache,
+  storage: new MMKVWrapper(MMKV_STORAGE),
+  maxSize: false,
+  trigger: 'background',
+});
+
+persistor.restore();
 
 const App = () => {
   return (
     <ApolloProvider client={client}>
-      <TodoList />
+      <OfflineStorage />
     </ApolloProvider>
   );
 };

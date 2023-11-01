@@ -1,32 +1,37 @@
 import {gql} from '@apollo/client';
 
-const CREATE_TODO = gql`
-  mutation CreateTodo($title: String!) {
-    createTodo(input: {title: $title})
-      @rest(type: "Todo", path: "todos", method: "POST") {
+const CREATE_EMPLOYEE = gql`
+  mutation CreateEmployee($name: String!) {
+    createEmployee(input: {name: $name})
+      @rest(type: "Employee", path: "employee", method: "POST") {
       id
-      title
+      name
     }
   }
 `;
 
-const UPDATE_TODO_MUTATION = gql`
-  mutation UpdateTodo($input: UpdateTodoInput!) {
-    updateTodo(input: $input)
-      @rest(type: "Todo", path: "todos/{args.input.id}", method: "PUT") {
-      id
-      title
-    }
-  }
-`;
+// const UPDATE_TODO_MUTATION = gql`
+//   mutation UpdateTodo($input: UpdateTodoInput!) {
+//     updateTodo(input: $input)
+//       @rest(type: "Employee", path: "employees", method: "PUT") {
+//       id
+//       name
+//       department
+//       designation
+//       phoneNumber
+//       salary
+//       active
+//     }
+//   }
+// `;
 
 const DELETE_TODO_MUTATION = gql`
   mutation DeleteTodo($id: Int!) {
     deleteTodo(id: $id)
-      @rest(type: "Todo", path: "todos/{args.id}", method: "DELETE") {
+      @rest(type: "Employee", path: "employees/{args.id}", method: "DELETE") {
       id
     }
   }
 `;
 
-export {CREATE_TODO, UPDATE_TODO_MUTATION, DELETE_TODO_MUTATION};
+export {CREATE_EMPLOYEE, DELETE_TODO_MUTATION};

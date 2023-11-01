@@ -2,10 +2,9 @@ import {gql} from '@apollo/client';
 
 const query = gql`
   query Todos {
-    todos @rest(type: "[Todo]", path: "todos") {
+    employees @rest(type: "[Employees]", path: "employees") {
       id
-      title
-      completed
+      name
     }
   }
 `;
