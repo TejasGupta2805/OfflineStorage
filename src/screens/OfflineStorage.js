@@ -46,8 +46,8 @@ export const OfflineStorage = () => {
   const [deleteTodo] = useMutation(DELETE_TODO_MUTATION);
 
   const createItemOffline = (key, value) => {
-    const offlineData = MMKV.getString('offlineData');
-    const parsedData = offlineData ? JSON.parse(offlineData) : [];
+    const offlineDatas = MMKV.getString('offlineData');
+    const parsedData = offlineDatas ? JSON.parse(offlineData) : [];
     parsedData.push({key, value});
     MMKV.setString('offlineData', JSON.stringify(parsedData));
   };
